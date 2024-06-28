@@ -1,56 +1,96 @@
 body {
-    font-family: 'Open Sans', sans-serif;
-    background-color: #f2f2f2;
-    margin: 0;
-    padding: 0;
-  }
+  position: relative;
+  font-family: 'Open Sans', sans-serif;
+  background-color: #f2f2f2;
+  margin: 0;
+  padding: 0;
+}
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+.title {
+  font-size: 2.5rem;
+  color: #191730;
+  margin-bottom: 20px;
+}
+.section {
+  background-color: #d9e4f1;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+.section h2 {
+  font-size: 1.5rem;
+  color: #394240;
+  margin-bottom: 10px;
+}
+.section p {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.6;
+}
+.section blockquote {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  border-left: 4px solid #142949;
+  color: #394240;
+  font-style: italic;
+}
+.navbar {
+  display: flex;
+  justify-content: center;
+  background-color: #191730;
+  padding: 10px;
+}
+.navbar-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
 
-  .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
-  }
+.user-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  .title {
-    font-size: 2.5rem;
-    color: #394240;
-    margin-bottom: 20px;
-  }
+.user-icon svg {
+  width: 40px;
+  height: 40px;
+}
 
-  .section {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin-bottom: 20px;
-    text-align: left;
-  }
-
-  .section h2 {
-    font-size: 1.5rem;
-    color: #394240;
-    margin-bottom: 10px;
-  }
-
-  .section p {
-    font-size: 1rem;
-    color: #666;
-    line-height: 1.6;
-  }
-
-  .section blockquote {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #f9ebd4;
-    border-left: 4px solid #f76d57;
-    color: #394240;
-    font-style: italic;
-  }
-
-  .section blockquote footer {
-    margin-top: 10px;
-    font-size: 0.9rem;
-    color: #666;
-    text-align: right;
-  }
+.nav-link {
+  display: flex;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+}
+.nav-link:hover {
+  color: #e43bbf;
+}
+.nav-link svg {
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+}
+.link-text {
+  font-size: 1rem;
+}
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #f76d57;
+}
