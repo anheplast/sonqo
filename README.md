@@ -1,7 +1,5 @@
 # SONQO
 
-## Actualizar tu rama local
-
 Primero, cambiar a tu rama local:
 ```bash
 git checkout tu_rama
@@ -10,17 +8,15 @@ Hacer pull de la rama 'main':
 ```bash
 git pull origin main
 ```
-
-Si les sale algún error de reconciliar las ramas divergentes, hagan esto:
-
-Merge por defecto
-```bash
-git config --global pull.rebase false
-```
+> [!WARNING]
+> Si les sale algún error de reconciliar las ramas divergentes, hagan esto:
+>```bash
+>git config --global pull.rebase false
+>```
 
 Ejecutar la aplicación Flask
-- Prerrequisitos
-Debes tener Python 3 instalado. Puedes verificarlo con:
+Prerrequisitos
+Debes tener python3 instalado, puedes verificarlo con:
 ```bash
 python3 --version
 ```
@@ -37,14 +33,9 @@ En Linux:
 source myvenv/bin/activate
 ```
 
-En la terminal les debe salir algo así:
-```bash
-(myvenv) ➜  sonqo-web git:(main)
-```
+En la terminal les debe salir algo así `(myvenv) ➜  sonqo-web git:(main)`, eso significa que están dentro del entorno virtual.
 
-Eso significa que están dentro del entorno virtual.
-
-- Instalar las dependencias
+Instalar las dependencias
 ```bash
 pip install -r requirements.txt
 ```
@@ -67,10 +58,9 @@ Press CTRL+C to quit
  * Debugger PIN: 141-320-397
 ```
 
-Ahora, abran el navegador y vayan a la dirección que les haya salido. En este caso fue 
-`http://127.0.0.1:5000`
+Ahora, abran el navegador y vayan a la dirección que les haya salido. 
+- En este caso fue `http://127.0.0.1:5000`
 
-- Ver las páginas
-Por ejemplo, para ver la página de login:
-
+Ver las páginas
+- Por ejemplo, para ver la página de login:
 `http://127.0.0.1:5000/login`
