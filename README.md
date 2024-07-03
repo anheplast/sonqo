@@ -33,11 +33,7 @@ En Linux:
 source myvenv/bin/activate
 ```
 
-En la terminal les debe salir algo así:
-`(myvenv) ➜  sonqo-web git:(main)`
-
-
-Eso significa que están dentro del entorno virtual.
+En la terminal les debe salir algo así `(myvenv) ➜  sonqo-web git:(main)`, eso significa que están dentro del entorno virtual.
 
 Instalar las dependencias
 ```bash
