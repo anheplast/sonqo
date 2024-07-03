@@ -67,5 +67,5 @@ Ahora, abran el navegador y vayan a la dirección que les haya salido.
 En este caso fue `http://127.0.0.1:5000`
 
 Ver las páginas
-Por ejemplo, para ver la página de login:
+- Por ejemplo, para ver la página de login:
 `http://127.0.0.1:5000/login`
