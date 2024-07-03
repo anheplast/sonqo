@@ -34,9 +34,8 @@ source myvenv/bin/activate
 ```
 
 En la terminal les debe salir algo así:
-```bash
-(myvenv) ➜  sonqo-web git:(main)
-```
+`(myvenv) ➜  sonqo-web git:(main)`
+
 
 Eso significa que están dentro del entorno virtual.
 
@@ -64,7 +63,7 @@ Press CTRL+C to quit
 ```
 
 Ahora, abran el navegador y vayan a la dirección que les haya salido. 
-En este caso fue `http://127.0.0.1:5000`
+- En este caso fue `http://127.0.0.1:5000`
 
 Ver las páginas
 - Por ejemplo, para ver la página de login:
