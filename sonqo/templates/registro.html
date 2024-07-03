@@ -8,13 +8,19 @@
 </head>
 <body>
     <div class="container">
-        <form id="registerForm">
+        <form id="registerForm" method="POST" action="{{ url_for('registro') }}">
             <h2>Registro</h2>
             <label for="username">Usuario:</label>
             <input type="text" id="username" name="username" required>
 
             <label for="password">Contraseña:</label>
             <input type="password" id="password" name="password" required>
+
+            <label for="rol">Selecciona tu rol:</label>
+            <select id="rol" name="rol" required>
+                <option value="usuario">Usuario</option>
+                <option value="profesional">Profesional</option>
+            </select>
 
             <button type="submit">Registrar</button>
         </form>
