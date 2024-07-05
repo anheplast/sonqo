@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="container">
-        <form id="registerForm" method="POST" action="{{ url_for('registro') }}">
+        <form id="registerForm" method="POST" action="{{ url_for('crear_registro') }}">
             <h2>Registro</h2>
             <label for="username">Usuario:</label>
             <input type="text" id="username" name="username" required>
@@ -25,6 +25,9 @@
             <button type="submit">Registrar</button>
         </form>
         <p>¿Ya tienes cuenta? <a href="{{ url_for('login') }}">Inicia Sesión</a></p>
+        {% if registro_correcto %}
+        <p id="registro_correcto">{{ registro_correcto }}</p>
+        {% endif %}
     </div>
 </body>
 </html>

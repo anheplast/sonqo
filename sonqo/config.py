@@ -6,4 +6,3 @@ class Config:
     SQLALCHEMY_DATABASE_URI = 'postgresql://mapple:J_%40nte0L@localhost/db_sonqo'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-db = SQLAlchemy()
