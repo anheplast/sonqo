@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subir Audio</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Subir Audio</h1>
+        <form method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="titulo">Título de la Canción</label>
+                <input type="text" id="titulo" name="titulo" required>
+            </div>
+            <div class="form-group">
+                <label for="artista">Artista</label>
+                <input type="text" id="artista" name="artista" required>
+            </div>
+            <div class="form-group">
+                <label for="audio_file">Seleccionar archivo de audio</label>
+                <input type="file" id="audio_file" name="audio_file" accept=".webm, .mp3, .wav" required>
+            </div>
+            <button type="submit">Subir</button>
+        </form>
+    </div>
+</body>
+</html>

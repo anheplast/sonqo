@@ -1,0 +1,24 @@
+<!-- templates/admin/consejos_admin.html -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Administrar Consejos</title>
+</head>
+<body>
+    <h1>Administrar Consejos</h1>
+
+    <a href="/admin/insertar_consejo">Insertar Nuevo Consejo</a>
+
+    <ul>
+        {% for consejo in consejos %}
+        <li>
+            <h3>{{ consejo.titulo }}</h3>
+            <p>{{ consejo.descripcion }}</p>
+            <!-- Mostrar detalles, imagen_url u otros campos según sea necesario -->
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

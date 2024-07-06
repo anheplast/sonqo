@@ -1,23 +1,8 @@
-function loadPage(page) {
-    fetch(page)
+function loadPage(url) {
+    fetch(url)
         .then(response => response.text())
-        .then(data => {
-            document.getElementById('main').innerHTML = data;
+        .then(html => {
+            document.getElementById('main').innerHTML = html;
         })
-        .catch(error => {
-            console.error('Error al cargar la página:', error);
-            document.getElementById('main').innerHTML = '<p>Error al cargar la página.</p>';
-        });
+        .catch(error => console.error('Error al cargar la página:', error));
 }
-
-// Pagina inicial
-loadPage('pag1.html');
-
-// Eventos
-document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', (event) => {
-        event.preventDefault();
-        const page = event.target.closest('a').getAttribute('href') + '.html';
-        loadPage(page);
-    });
-});

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración de Consejos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Administrar Consejos</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Insertar Consejo</h2>
+            <form action="{{ url_for('insertar_consejo') }}" method="POST">
+                <label for="titulo">Título:</label>
+                <input type="text" id="titulo" name="titulo" required><br><br>
+                <label for="descripcion">Descripción:</label><br>
+                <textarea id="descripcion" name="descripcion" rows="4" required></textarea><br><br>
+                <label for="detalles">Detalles:</label><br>
+                <textarea id="detalles" name="detalles" rows="4"></textarea><br><br>
+                <label for="imagen_url">URL de la Imagen:</label>
+                <input type="text" id="imagen_url" name="imagen_url"><br><br>
+                <button type="submit">Insertar Consejo</button>
+            </form>
+        </section>
+        <section>
+            <h2>Eliminar Consejo</h2>
+            <form action="{{ url_for('eliminar_consejo') }}" method="POST">
+                <label for="id_consejo">ID del Consejo a Eliminar:</label>
+                <input type="number" id="id_consejo" name="id_consejo" required><br><br>
+                <button type="submit">Eliminar Consejo</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>© 2024 Tu Empresa</p>
+    </footer>
+</body>
+</html>

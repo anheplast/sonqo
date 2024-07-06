@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playlist de Música</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/playlist.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap" rel="stylesheet">
+</head>
+<body>
+    {% include 'common/navbar_usuarios.html' %}
+    <div class="container">
+        <h1>Playlist de Música</h1>
+        <ul class="playlist">
+            {% for song in songs %}
+            <li>
+                <div class="song-info">
+                    <h3>{{ song.titulo }}</h3>
+                    <p>{{ song.artista }}</p>
+                </div>
+                <audio controls>
+                    <source src="{{ song.song_url }}" type="audio/mp3">
+                    Tu navegador no soporta el audio.
+                </audio>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% include 'common/footer.html' %}
+</body>
+</html>

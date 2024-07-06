@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/consejos.css') }}">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap" rel="stylesheet">
+  <script src="{{ url_for('static', filename='js/paginas.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/consejos.js') }}"></script>
+  <title>Consejos</title>
+
+</head>
+<body>
+    {% include 'common/navbar_usuarios.html' %}
+    <div class="container">
+        <h1>Consejos</h1>
+
+        <!-- Contenedor para los consejos -->
+        <div class="consejos-container">
+            {% for consejo in consejos %}
+            <div class="consejo">
+                <h2>{{ consejo.titulo }}</h2>
+                <p class="descripcion">{{ consejo.descripcion }}</p>
+                <p class="detalles">{{ consejo.detalles }}</p>
+                <button class="toggle-details-btn">Seguir leyendo</button>
+                <div class="full-details">
+                    <p>{{ consejo.detalles }}</p>
+                </div>
+                <img src="{{ consejo.imagen_url }}" alt="{{ consejo.titulo }}">
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% include 'common/footer.html' %}
+</body>
+
+</html>

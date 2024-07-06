@@ -1,0 +1,28 @@
+/* Estilos para la página de la playlist */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.playlist {
+    list-style-type: none;
+    padding: 0;
+}
+
+.playlist li {
+    margin-bottom: 20px;
+    background-color: #f8f9fa; /* Fondo para resaltar cada canción */
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.playlist audio {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.song-info {
+    margin-bottom: 10px;
+}
