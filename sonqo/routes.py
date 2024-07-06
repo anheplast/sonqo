@@ -1,71 +1,20 @@
 import os
-from flask import Flask, render_template, redirect, url_for, request, flash, make_response, session, jsonify
+from flask import render_template, redirect, url_for, request, flash, session, send_from_directory, send_file
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, SelectField
+from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired
-from flask_bcrypt import Bcrypt
-import matplotlib.pyplot as plt
 from werkzeug.utils import secure_filename
-from sonqo.config import Config
+from sonqo import app, db, bcrypt
+from sonqo.models import User, Consejo, Actividad, Cancion
+from sonqo.forms import UploadForm
 
-import io
-import base64
-
-
-
-from sonqo import app, db
-# Modelos
-from sonqo.models import User, Consejo, Actividad
-from sonqo.models import Cancion
-
-bcrypt = Bcrypt(app)
+app.config['UPLOAD_FOLDER'] = 'sonqo/static/uploads'
 
 
-# Playlist -------------------------------------------
-Carpeta_SUBIDAS = app.config['Carpeta_SUBIDAS']
-Extensiones_PERMITIDAS = {'webm', 'mp3', 'wav'}
+#if not os.path.exists(app.config['UPLOAD_FOLDER']):
+#   os.makedirs(app.config['UPLOAD_FOLDER'])
 
-def archivo_permitido(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in Extensiones_PERMITIDAS
-
-@app.route('/subir_audio', methods=['GET', 'POST'])
-def subir_audio():
-    if request.method == 'POST':
-        if 'audio_file' not in request.files:
-            flash('No se ha enviado ningún archivo')
-            return redirect(request.url)
-        
-        file = request.files['audio_file']
-
-        if file.filename == '':
-            flash('No se ha seleccionado ningún archivo')
-            return redirect(request.url)
-        
-        if file and archivo_permitido(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(Carpeta_SUBIDAS, filename))
-
-            # Guardar información en la base de datos
-            nueva_cancion = Cancion(
-                titulo=request.form['titulo'],
-                artista=request.form['artista'],
-                archivo=file.read(),
-                nombre_archivo=filename
-            )
-            db.session.add(nueva_cancion)
-            db.session.commit()
-
-            flash('Archivo subido exitosamente')
-            return redirect(url_for('playlist'))
-
-    return render_template('subir_audio.html')
-#-------------------------------------------------------
-
-
-
-
-# salir ---------
-
+# salir
 @app.route('/salir')
 def salir():
     print("Sesión antes de salir:", session.get('user_id'))
@@ -73,10 +22,7 @@ def salir():
     print("Sesión después de salir:", session.get('user_id'))
     return redirect(url_for('login'))
 
-# ---------------
-
-# registro ------
-
+# registro
 @app.route('/registro', methods=["GET", "POST"])
 def crear_registro():
     if request.method == "POST":
@@ -103,55 +49,11 @@ def crear_registro():
 
     return render_template('auth/registro.html')
 
-#-----------------
-
-
-# login ----------
+# login
 class LoginForm(FlaskForm):
     username = StringField('Usuario', validators=[DataRequired()])
     password = PasswordField('Contraseña', validators=[DataRequired()])
     submit = SubmitField('Iniciar Sesión')
-
-# Vista Usuario y Profesional-----------------------
-@app.route('/usuarios')
-def usuario():
-    render_template('common/navbar_usuarios.html')
-    return render_template('usuarios.html')
-
-@app.route('/profesional')
-def profesional():
-    return render_template('profesional.html')
-
-#----------------------------------------------------
-
-@app.route('/paginas/pulso')
-def pulso():
-    return render_template('paginas/pulso.html')
-
-
-
-# Rutas a las paginas de Usuario
-
-@app.route('/consejos')
-def mostrar_consejos():
-    consejos = Consejo.query.all()  # Asegúrate de que esta consulta devuelve datos
-    return render_template('paginas/consejos.html', consejos=consejos)
-
-@app.route('/actividades')
-def mostrar_actividades():
-    actividades = Actividad.query.all()
-    return render_template('paginas/actividades.html', actividades=actividades)
-
-
-@app.route('/playlist')
-def playlist():
-    # Obtener todas las canciones de la base de datos
-    songs = Song.query.all()
-    return render_template('paginas/playlist.html', songs=songs)
-
-
-
-#----------------------------
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -173,12 +75,107 @@ def login():
 
     return render_template('auth/login.html', form=form)
 
-# ----------------
+# Vista Usuario y Profesional
+@app.route('/usuarios')
+def usuario():
+    return render_template('usuarios.html')
+
+@app.route('/profesional')
+def profesional():
+    return render_template('profesional.html')
+
+@app.route('/paginas/pulso')
+def pulso():
+    return render_template('paginas/pulso.html')
+
+# Rutas a las paginas de Usuario
+@app.route('/consejos')
+def mostrar_consejos():
+    consejos = Consejo.query.all()
+    return render_template('paginas/consejos.html', consejos=consejos)
+
+@app.route('/actividades')
+def mostrar_actividades():
+    actividades = Actividad.query.all()
+    return render_template('paginas/actividades.html', actividades=actividades)
+
+
+# Ruta y función para mostrar la página de administración de actividades
+@app.route('/administrar/actividades', methods=['GET'])
+def administrar_actividades():
+    actividades = Actividad.query.all()
+    return render_template('admin/admin.html', actividades=actividades)
+
+# Ruta y función para insertar una nueva actividad
+@app.route('/insertar_actividad', methods=['POST'])
+def insertar_actividad():
+    titulo = request.form['titulo']
+    descripcion = request.form['descripcion']
+    imagen_url = request.form['imagen_url']
+    video_url = request.form['video_url']
+
+    nueva_actividad = Actividad(titulo=titulo, descripcion=descripcion, imagen_url=imagen_url, video_url=video_url)
+    db.session.add(nueva_actividad)
+    db.session.commit()
+
+    return redirect(url_for('administrar_actividades'))
+
+# Ruta y función para eliminar una actividad existente
+@app.route('/eliminar_actividad', methods=['POST'])
+def eliminar_actividad():
+    id_actividad = request.form['id_actividad']
+
+    actividad_a_eliminar = Actividad.query.get(id_actividad)
+    if actividad_a_eliminar:
+        db.session.delete(actividad_a_eliminar)
+        db.session.commit()
+
+    return redirect(url_for('administrar_actividades'))
+
+# Playlist
+
+
+@app.route('/admin', methods=['GET', 'POST'])
+def upload():
+    form = UploadForm()
+    if form.validate_on_submit():
+        titulo = form.titulo.data
+        artista = form.artista.data
+        archivo = form.archivo.data
+        nombre_archivo = secure_filename(archivo.filename)
+
+        # Guardar archivo en la carpeta de uploads
+        archivo.save(os.path.join(app.config['UPLOAD_FOLDER'], nombre_archivo))
+
+        # Crear instancia de Cancion sin archivo_binario
+        nueva_cancion = Cancion(
+            titulo=titulo,
+            artista=artista,
+            nombre_archivo=nombre_archivo
+        )
+
+        # Guardar en la base de datos
+        db.session.add(nueva_cancion)
+        db.session.commit()
+
+        flash('Archivo subido correctamente.', 'success')
+        return redirect(url_for('playlist'))
+
+    return render_template('admin/admin.html', form=form)
+
+
+
+@app.route('/playlist')
+def playlist():
+    songs = Cancion.query.all()
+    return render_template('paginas/playlist.html', songs=songs)
+
+
 
 # Ruta para mostrar la página de administración
-@app.route('/administrar/consejos', methods=['GET'])
+@app.route('/admin', methods=['GET'])
 def administrar_consejos():
-    return render_template('admin.html')
+    return render_template('admin/admin.html')
 
 # Ruta y función para insertar un nuevo consejo
 @app.route('/insertar_consejo', methods=['POST'])
@@ -205,6 +202,3 @@ def eliminar_consejo():
         db.session.commit()
 
     return redirect(url_for('administrar_consejos'))
-
-
-

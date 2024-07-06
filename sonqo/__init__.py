@@ -8,5 +8,4 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 
-
 from sonqo import routes

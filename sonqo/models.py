@@ -1,4 +1,6 @@
 from sonqo import db
+from flask import url_for
+from datetime import datetime
 from flask_bcrypt import generate_password_hash
 from sqlalchemy import Text
 
@@ -32,9 +34,18 @@ class Actividad(db.Model):
     
 
 class Cancion(db.Model):
+    __tablename__ = 'tb_canciones'
     id = db.Column(db.Integer, primary_key=True)
     titulo = db.Column(db.String(100), nullable=False)
     artista = db.Column(db.String(100), nullable=False)
-    archivo = db.Column(db.LargeBinary, nullable=False)
     nombre_archivo = db.Column(db.String(255), nullable=False)
-    fecha_creacion = db.Column(db.TIMESTAMP, server_default=db.func.now(), nullable=False)
+    fecha_creacion = db.Column(db.TIMESTAMP, default=datetime.utcnow, nullable=False)
+
+    @property
+    def song_url(self):
+        return url_for('static', filename=f'uploads/{self.nombre_archivo}')
+
+
+
+    
+

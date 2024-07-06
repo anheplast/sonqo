@@ -1,34 +1,40 @@
-/* Estilos para la página de administración */
+/* admin.css */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f0f0f0;
     margin: 0;
     padding: 0;
-    background-color: #f0f0f0;
+    color: #333;
 }
 
 header {
-    background-color: #333;
+    background-color: #302c2c;
     color: white;
+    padding: 1rem;
     text-align: center;
-    padding: 1rem 0;
-}
-
-h1 {
-    margin: 0;
 }
 
 main {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
-    padding: 2rem;
+    padding: 1rem;
 }
 
 section {
     background-color: #fff;
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 5px;
+    margin: 1rem;
+    padding: 1rem;
+    width: calc(100% - 2rem);
+    max-width: 600px;
+}
+
+section h2 {
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 form {
@@ -36,37 +42,113 @@ form {
     flex-direction: column;
 }
 
-label {
+form label {
     font-weight: bold;
+    margin-bottom: 0.5rem;
 }
 
-input[type="text"], textarea {
-    width: 100%;
-    padding: 0.5rem;
+form input, form textarea {
     margin-bottom: 1rem;
+    padding: 0.5rem;
     border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 1rem;
+}
+
+form button {
+    padding: 0.75rem;
+    background-color: #940f0f;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #b40707;
+}
+
+footer {
+    background-color: #302c2c;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+@media only screen and (max-width: 800px) {
+    main {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    section {
+        width: 100%;
+    }
+}
+
+
+/* Estilos para el formulario de Subir Canción */
+.playlist-form {
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.playlist-form h2 {
+    color: #343a40;
+    margin-bottom: 20px;
+}
+
+.playlist-form .form-group {
+    margin-bottom: 15px;
+}
+
+.playlist-form label {
+    font-weight: bold;
+    color: #6c757d;
+}
+
+.playlist-form .form-control {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ced4da;
     border-radius: 4px;
 }
 
-button {
-    background-color: #333;
+.playlist-form .form-control-file {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+}
+
+.playlist-form button[type="submit"] {
+    background-color: #007bff;
     color: white;
     border: none;
-    padding: 0.8rem;
+    padding: 10px 20px;
+    font-size: 16px;
     cursor: pointer;
     border-radius: 4px;
 }
 
-button:hover {
-    background-color: #555;
+.playlist-form button[type="submit"]:hover {
+    background-color: #0056b3;
 }
 
-footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 1rem 0;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+/* Estilos para ajustes en dispositivos móviles */
+@media only screen and (max-width: 600px) {
+    .playlist-form {
+        padding: 10px;
+    }
+
+    .playlist-form button[type="submit"] {
+        width: 100%;
+    }
 }
