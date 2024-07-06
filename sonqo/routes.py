@@ -100,11 +100,23 @@ def mostrar_actividades():
     return render_template('paginas/actividades.html', actividades=actividades)
 
 
-# Ruta y función para mostrar la página de administración de actividades
-@app.route('/administrar/actividades', methods=['GET'])
-def administrar_actividades():
+# Rutas para listar Consejos y Actividades -------------------------------------
+
+@app.route('/profesional/listactividades')
+def listar_actividades():
     actividades = Actividad.query.all()
-    return render_template('admin/admin.html', actividades=actividades)
+    return render_template('list_actividades.html', actividades=actividades)
+
+@app.route('/profesional/listconsejos')
+def listar_consejos():
+    consejos = Consejo.query.all()
+    return render_template('list_consejos.html', consejos=consejos)
+
+#-------------------------------------------------------------------------------
+
+
+
+# Admin Actividades -----------------------------------------------
 
 # Ruta y función para insertar una nueva actividad
 @app.route('/insertar_actividad', methods=['POST'])
@@ -118,7 +130,7 @@ def insertar_actividad():
     db.session.add(nueva_actividad)
     db.session.commit()
 
-    return redirect(url_for('administrar_actividades'))
+    return redirect(url_for('administrar_consejos'))
 
 # Ruta y función para eliminar una actividad existente
 @app.route('/eliminar_actividad', methods=['POST'])
@@ -130,10 +142,13 @@ def eliminar_actividad():
         db.session.delete(actividad_a_eliminar)
         db.session.commit()
 
-    return redirect(url_for('administrar_actividades'))
+    return redirect(url_for('administrar_consejos'))
+
+#--------------------------------------------------------------------------------
+
+
 
 # Playlist
-
 
 @app.route('/admin', methods=['GET', 'POST'])
 def upload():
@@ -177,7 +192,8 @@ def playlist():
 def administrar_consejos():
     return render_template('admin/admin.html')
 
-# Ruta y función para insertar un nuevo consejo
+# Admin Actividades --------------------------------------------------
+
 @app.route('/insertar_consejo', methods=['POST'])
 def insertar_consejo():
     titulo = request.form['titulo']
@@ -202,3 +218,5 @@ def eliminar_consejo():
         db.session.commit()
 
     return redirect(url_for('administrar_consejos'))
+
+#----------------------------------------------------------------------

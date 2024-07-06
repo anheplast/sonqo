@@ -9,6 +9,10 @@ function fetchPage(url) {
         });
 }
 
+function fetchPulso() {
+    fetchPage('/paginas/pulso');
+}
+
 function fetchConsejos() {
     fetchPage('/consejos');
 }
@@ -19,6 +23,15 @@ function fetchActividades() {
 
 function fetchPlaylist() {
     fetchPage('/playlist');
+}
+
+function fetchListarActividades() {
+    fetchPage('/profesional/listactividades');
+}
+
+
+function fetchListarConsejos() {
+    fetchPage('/profesional/listconsejos');
 }
 
 

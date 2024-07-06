@@ -1,4 +1,6 @@
 /* admin.css */
+
+
 body {
     font-family: 'Open Sans', sans-serif;
     background-color: #f0f0f0;
@@ -86,69 +88,6 @@ footer {
     }
 
     section {
-        width: 100%;
-    }
-}
-
-
-/* Estilos para el formulario de Subir Canción */
-.playlist-form {
-    background-color: #f8f9fa;
-    border: 1px solid #ced4da;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-}
-
-.playlist-form h2 {
-    color: #343a40;
-    margin-bottom: 20px;
-}
-
-.playlist-form .form-group {
-    margin-bottom: 15px;
-}
-
-.playlist-form label {
-    font-weight: bold;
-    color: #6c757d;
-}
-
-.playlist-form .form-control {
-    width: 100%;
-    padding: 8px;
-    font-size: 16px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-}
-
-.playlist-form .form-control-file {
-    width: 100%;
-    padding: 8px;
-    font-size: 16px;
-}
-
-.playlist-form button[type="submit"] {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-.playlist-form button[type="submit"]:hover {
-    background-color: #0056b3;
-}
-
-/* Estilos para ajustes en dispositivos móviles */
-@media only screen and (max-width: 600px) {
-    .playlist-form {
-        padding: 10px;
-    }
-
-    .playlist-form button[type="submit"] {
         width: 100%;
     }
 }

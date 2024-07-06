@@ -1,28 +1,100 @@
-/* Estilos para la página de la playlist */
+/* playlist.css */
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
 .container {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-top: 80px; /* Space for the navbar */
+    margin-bottom: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
 }
 
 .playlist {
-    list-style-type: none;
+    list-style: none;
     padding: 0;
+    margin: 0;
 }
 
 .playlist li {
-    margin-bottom: 20px;
-    background-color: #f8f9fa; /* Fondo para resaltar cada canción */
     padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease;
 }
 
-.playlist audio {
-    width: 100%;
-    margin-top: 10px;
+.playlist li:last-child {
+    border-bottom: none;
 }
 
 .song-info {
-    margin-bottom: 10px;
+    flex-grow: 1;
+    margin-right: 20px;
+}
+
+.song-info h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.song-info p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: #666;
+}
+
+audio {
+    width: 100%;
+    max-width: 300px;
+}
+
+.playlist li:hover {
+    background-color: #f9f9f9;
+}
+
+.playlist li.active {
+    background-color: #e6f7ff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .song-info {
+        margin-right: 10px;
+    }
+
+    audio {
+        max-width: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .playlist li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    audio {
+        max-width: 100%;
+    }
 }
