@@ -52,7 +52,7 @@ def crear_registro():
         db.session.add(nuevo_usuario)
         db.session.commit()
 
-        return render_template("registro.html", registro_correcto="Usuario Registrado Exitosamente")
+        return render_template("auth/registro.html", registro_correcto="Usuario Registrado Exitosamente")
 
     return render_template('auth/registro.html')
 
