@@ -6,7 +6,7 @@ from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired
 from werkzeug.utils import secure_filename
 from sonqo import app, db, bcrypt
-from sonqo.models import User, Consejo, Actividad, Cancion, PulseData
+from sonqo.models import User, Consejo, Actividad, Cancion, PulseData, Paciente
 from sonqo.forms import UploadForm
 from flask_cors import CORS
 
@@ -17,19 +17,20 @@ from flask_sqlalchemy import SQLAlchemy
 
 app.config['UPLOAD_FOLDER'] = 'sonqo/static/uploads'
 
+if not os.path.exists(app.config['UPLOAD_FOLDER']):
+   os.makedirs(app.config['UPLOAD_FOLDER'])
 
-#if not os.path.exists(app.config['UPLOAD_FOLDER']):
-#   os.makedirs(app.config['UPLOAD_FOLDER'])
 
-# salir
+# salir-----------------------------------------------------------------------------------
 @app.route('/salir')
 def salir():
     print("Sesión antes de salir:", session.get('user_id'))
     session.pop('user_id', None)
     print("Sesión después de salir:", session.get('user_id'))
     return redirect(url_for('login'))
+#-----------------------------------------------------------------------------------------
 
-# registro
+# registro--------------------------------------------------------------------------------
 @app.route('/registro', methods=["GET", "POST"])
 def crear_registro():
     if request.method == "POST":
@@ -55,8 +56,9 @@ def crear_registro():
         return render_template("auth/registro.html", registro_correcto="Usuario Registrado Exitosamente")
 
     return render_template('auth/registro.html')
+#------------------------------------------------------------------------------------------
 
-# login
+# login------------------------------------------------------------------------------------
 class LoginForm(FlaskForm):
     username = StringField('Usuario', validators=[DataRequired()])
     password = PasswordField('Contraseña', validators=[DataRequired()])
@@ -81,15 +83,15 @@ def login():
             flash('Credenciales incorrectas. Intente de nuevo.', 'error')
 
     return render_template('auth/login.html', form=form)
+#-----------------------------------------------------------------------------------------
 
+
+#-----------------------------------------------------------------------------------------
 # Vista Usuario y Profesional
 @app.route('/usuarios')
 def usuario():
     return render_template('usuarios.html')
 
-@app.route('/profesional')
-def profesional():
-    return render_template('profesional.html')
 
 @app.route('/paginas/pulso')
 def pulso():
@@ -105,10 +107,10 @@ def mostrar_consejos():
 def mostrar_actividades():
     actividades = Actividad.query.all()
     return render_template('paginas/actividades.html', actividades=actividades)
+#-------------------------------------------------------------------------------------------
 
 
-# Rutas para listar Consejos y Actividades -------------------------------------
-
+# Rutas para listar Consejos y Actividades -------------------------------------------------
 @app.route('/profesional/listactividades')
 def listar_actividades():
     actividades = Actividad.query.all()
@@ -118,47 +120,33 @@ def listar_actividades():
 def listar_consejos():
     consejos = Consejo.query.all()
     return render_template('list_consejos.html', consejos=consejos)
-
-#-------------------------------------------------------------------------------
-
+#------------------------------------------------------------------------------------------
 
 
-# Admin Actividades -----------------------------------------------
+
+# Admin Actividades -----------------------------------------------------------------------
 
 # Ruta y función para insertar una nueva actividad
-@app.route('/insertar_actividad', methods=['POST'])
-def insertar_actividad():
-    titulo = request.form['titulo']
-    descripcion = request.form['descripcion']
-    imagen_url = request.form['imagen_url']
-    video_url = request.form['video_url']
 
-    nueva_actividad = Actividad(titulo=titulo, descripcion=descripcion, imagen_url=imagen_url, video_url=video_url)
-    db.session.add(nueva_actividad)
-    db.session.commit()
-
-    return redirect(url_for('administrar_consejos'))
-
-# Ruta y función para eliminar una actividad existente
-@app.route('/eliminar_actividad', methods=['POST'])
-def eliminar_actividad():
-    id_actividad = request.form['id_actividad']
-
-    actividad_a_eliminar = Actividad.query.get(id_actividad)
-    if actividad_a_eliminar:
-        db.session.delete(actividad_a_eliminar)
-        db.session.commit()
-
-    return redirect(url_for('administrar_consejos'))
-
-#--------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------
 
 
 
-# Playlist
+#Playlist---------------------------------------------------------------------------------
+# Ruta a Playlist
+@app.route('/playlist')
+def playlist():
+    songs = Cancion.query.all()
+    return render_template('paginas/playlist.html', songs=songs)
+
+@app.route('/admin/playlist')
+def subir_cancion():
+    form = UploadForm()
+    return render_template('admin/admin_playlist.html', form=form)
+
 
 @app.route('/admin', methods=['GET', 'POST'])
-def upload():
+def admin_panel():
     form = UploadForm()
     if form.validate_on_submit():
         titulo = form.titulo.data
@@ -169,7 +157,7 @@ def upload():
         # Guardar archivo en la carpeta de uploads
         archivo.save(os.path.join(app.config['UPLOAD_FOLDER'], nombre_archivo))
 
-        # Crear instancia de Cancion sin archivo_binario
+        # Crear instancia de Cancion con archivo guardado
         nueva_cancion = Cancion(
             titulo=titulo,
             artista=artista,
@@ -181,26 +169,63 @@ def upload():
         db.session.commit()
 
         flash('Archivo subido correctamente.', 'success')
-        return redirect(url_for('playlist'))
+        return redirect(url_for('admin_panel'))  # Redirige a la página de administración
 
     return render_template('admin/admin.html', form=form)
 
 
 
-@app.route('/playlist')
-def playlist():
-    songs = Cancion.query.all()
-    return render_template('paginas/playlist.html', songs=songs)
+
+# Ruta admin actividades-------------------------------------------------------------------
+@app.route('/manejar_actividades', methods=['GET'])
+def admin_actividades():
+    actividades = Actividad.query.all()
+    return render_template('admin/admin_actividades.html', actividades=actividades)
+
+# Insertar actividad
+@app.route('/insertar_actividad', methods=['POST'])
+def insertar_actividad():
+    titulo = request.form['titulo']
+    descripcion = request.form['descripcion']
+    imagen_url = request.form['imagen_url']
+    video_url = request.form['video_url']
+
+    nueva_actividad = Actividad(titulo=titulo, descripcion=descripcion, imagen_url=imagen_url, video_url=video_url)
+    db.session.add(nueva_actividad)
+    db.session.commit()
+
+    flash('Actividad insertada exitosamente', 'success')
+    return jsonify({'status': 'success', 'message': 'Actividad insertada exitosamente'})
+
+# Eliminar actividad
+@app.route('/eliminar_actividad', methods=['POST'])
+def eliminar_actividad():
+    id_actividad = request.form['id_actividad']
+
+    actividad_a_eliminar = Actividad.query.get(id_actividad)
+    if actividad_a_eliminar:
+        db.session.delete(actividad_a_eliminar)
+        db.session.commit()
+
+    flash('Actividad eliminada exitosamente', 'success')
+    return jsonify({'status': 'success', 'message': 'Actividad eliminada exitosamente'})
+#------------------------------------------------------------------------------------------
 
 
 
-# Ruta para mostrar la página de administración
-@app.route('/admin', methods=['GET'])
-def administrar_consejos():
-    return render_template('admin/admin.html')
+# Ruta admin playlist----------------------------------------------------------------------
 
-# Admin Actividades --------------------------------------------------
+#------------------------------------------------------------------------------------------
 
+
+# Admin Consejos -----------------------------------------------------------------------
+
+@app.route('/manejar_consejos', methods=['GET'])
+def admin_consejos():
+    consejos = Consejo.query.all()
+    return render_template('admin/admin_consejos.html', consejos=consejos)
+
+# Insertar consejo
 @app.route('/insertar_consejo', methods=['POST'])
 def insertar_consejo():
     titulo = request.form['titulo']
@@ -212,9 +237,10 @@ def insertar_consejo():
     db.session.add(nuevo_consejo)
     db.session.commit()
 
-    return redirect(url_for('administrar_consejos'))
+    flash('Consejo insertado exitosamente', 'success')
+    return jsonify({'status': 'success', 'message': 'Consejo insertado exitosamente'})
 
-# Ruta y función para eliminar un consejo existente
+# Eliminar consejo
 @app.route('/eliminar_consejo', methods=['POST'])
 def eliminar_consejo():
     id_consejo = request.form['id_consejo']
@@ -224,25 +250,60 @@ def eliminar_consejo():
         db.session.delete(consejo_a_eliminar)
         db.session.commit()
 
-    return redirect(url_for('administrar_consejos'))
+    flash('Consejo eliminado exitosamente', 'success')
+    return jsonify({'status': 'success', 'message': 'Consejo eliminado exitosamente'})
 
-#----------------------------------------------------------------------
+
+#------------------------------------------------------------------------------------------
 
 
-# Datos del XIAO ESP32S3-----------------------------------------------
+# Datos del XIAO ESP32S3-------------------------------------------------------------------
 
-# Endpoint para recibir datos
-@app.route('/api/data', methods=['POST'])
-def receive_data():
-    data = request.json
-    ritmo_cardiaco = data.get('ritmo_cardiaco')
-    spo2 = data.get('spo2')
+#------------------------------------------------------------------------------------------
 
-    # Guardar los datos en la base de datos
-    new_data = PulseData(ritmo_cardiaco=ritmo_cardiaco, spo2=spo2)
-    db.session.add(new_data)
-    db.session.commit()
 
-    return jsonify({'message': 'Data received successfully'}), 200
+# Registro paciente------------------------------------------------------------------------
+@app.route('/profesional', methods=['GET', 'POST'])
+def profesional():
+    if request.method == 'POST':
+        cedula = request.form['cedula']
+        nombres = request.form['nombres']
+        apellidos = request.form['apellidos']
+        tipo_sangre = request.form['tipo_sangre']
+        novedades = request.form['novedades']
+        descripcion = request.form['descripcion']
 
-#----------------------------------------------------------------------
+        nuevo_paciente = Paciente(
+            cedula=cedula,
+            nombres=nombres,
+            apellidos=apellidos,
+            tipo_sangre=tipo_sangre,
+            novedades=novedades,
+            descripcion=descripcion
+        )
+        db.session.add(nuevo_paciente)
+        db.session.commit()
+
+        flash('Paciente registrado exitosamente', 'success')
+        return redirect(url_for('profesional'))  # Mantenerse en la misma página
+
+    return render_template('profesional.html')
+
+@app.route('/registro_paciente', methods=['GET', 'POST'])
+def registro_paciente():
+    return render_template('paginas/registro_paciente.html')
+
+
+@app.route('/lista_pacientes', methods=['GET'])
+def lista_pacientes():
+    pacientes = Paciente.query.all()
+    return render_template('paginas/lista_pacientes.html', pacientes=pacientes)
+
+
+
+
+@app.route('/consejos_actividades', methods=['GET'])
+def consejos_actividades():
+    consejos = Consejo.query.all()
+    actividades = Actividad.query.all()
+    return render_template('paginas/admin_consejos_actividades.html', consejos=consejos, actividades=actividades)

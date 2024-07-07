@@ -2,42 +2,49 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/actividades.css') }}">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap" rel="stylesheet">
-    <script src="{{ url_for('static', filename='js/actividades.js') }}"></script>
-    <title>Actividades</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/actividades.css') }}"> 
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap" rel="stylesheet"> 
+    <script src="{{ url_for('static', filename='js/actividades.js') }}"></script> 
+    <title>Actividades</title> 
 </head>
 
 <body>
     <div class="container">
-        <h1>Actividades</h1>
+        <h1>Actividades</h1> 
 
         <!-- Contenedor para las actividades -->
         <div class="actividades-container">
+            
+            <!-- Itera sobre la lista de actividades y agrega el contenido dinámico -->
             {% for actividad in actividades %}
             <div class="actividad">
-                <h2>{{ actividad.titulo }}</h2>
-                <p class="descripcion">{{ actividad.descripcion }}</p>
-                <button class="ver-mas-btn">Ver más</button>
+                <h2>{{ actividad.titulo }}</h2> <!-- título de la actividad -->
+                <p class="descripcion">{{ actividad.descripcion }}</p> <!-- descripción de la actividad -->
+                <button class="ver-mas-btn">Ver más</button> <!-- ver más detalles de la actividad -->
                 <div class="full-text" style="display: none;">
-                    <p>{{ actividad.descripcion }}</p>
+                    <p>{{ actividad.descripcion }}</p> <!-- Texto completo de la descripción, por defecto oculto -->
                 </div>
+                
+                <!-- Agrega la imagen si está disponible en la base de datos -->
                 {% if actividad.imagen_url %}
-                <img src="{{ actividad.imagen_url }}" alt="{{ actividad.titulo }}">
+                <img src="{{ actividad.imagen_url }}" alt="{{ actividad.titulo }}"> <!-- Muestra la imagen de la actividad -->
                 {% endif %}
-
+                
+                <!-- Agrega el video si está disponible en la base de datos -->
                 {% if actividad.video_url %}
                 <div class="video-responsive">
-                    <iframe width="560" height="315" src="{{ actividad.video_url }}" frameborder="0" allowfullscreen></iframe>
+                    <iframe width="560" height="315" src="{{ actividad.video_url }}" frameborder="0" allowfullscreen></iframe> <!-- Muestra el video de la actividad -->
                 </div>
                 {% endif %}
             </div>
             {% endfor %}
         </div>
     </div>
+    
+    <!-- Footer de la carpeta common -->
     {% include 'common/footer.html' %}
 </body>
 
