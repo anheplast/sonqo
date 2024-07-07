@@ -44,6 +44,13 @@ class Cancion(db.Model):
     @property
     def song_url(self):
         return url_for('static', filename=f'uploads/{self.nombre_archivo}')
+    
+
+# Modelo de datos para los registros de ritmo cardiaco y SpO2
+class PulseData(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    ritmo_cardiaco = db.Column(db.Float)
+    spo2 = db.Column(db.Float)
 
 
 

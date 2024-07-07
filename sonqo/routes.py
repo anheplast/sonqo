@@ -1,12 +1,19 @@
 import os
-from flask import render_template, redirect, url_for, request, flash, session, send_from_directory, send_file
+import json
+from flask import render_template, redirect, url_for, request, flash, session, send_from_directory, send_file, jsonify
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired
 from werkzeug.utils import secure_filename
 from sonqo import app, db, bcrypt
-from sonqo.models import User, Consejo, Actividad, Cancion
+from sonqo.models import User, Consejo, Actividad, Cancion, PulseData
 from sonqo.forms import UploadForm
+from flask_cors import CORS
+
+#ESP32
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from flask_sqlalchemy import SQLAlchemy
 
 app.config['UPLOAD_FOLDER'] = 'sonqo/static/uploads'
 
@@ -218,5 +225,24 @@ def eliminar_consejo():
         db.session.commit()
 
     return redirect(url_for('administrar_consejos'))
+
+#----------------------------------------------------------------------
+
+
+# Datos del XIAO ESP32S3-----------------------------------------------
+
+# Endpoint para recibir datos
+@app.route('/api/data', methods=['POST'])
+def receive_data():
+    data = request.json
+    ritmo_cardiaco = data.get('ritmo_cardiaco')
+    spo2 = data.get('spo2')
+
+    # Guardar los datos en la base de datos
+    new_data = PulseData(ritmo_cardiaco=ritmo_cardiaco, spo2=spo2)
+    db.session.add(new_data)
+    db.session.commit()
+
+    return jsonify({'message': 'Data received successfully'}), 200
 
 #----------------------------------------------------------------------
