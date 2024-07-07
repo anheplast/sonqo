@@ -1,0 +1,35 @@
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap" rel="stylesheet" />
+    <script src="{{ url_for('static', filename='js/fetchtest.js') }}"></script>
+    </head>
+
+    <body>
+    
+        <main id="main">
+            <div class="welcome-container">
+                <div class="logo-container">
+                    <img src="https://i.pinimg.com/564x/9a/c5/a7/9ac5a7fbbdcf7fec6667c4c33284837c.jpg" alt="Sonqo Logo" class="logo">
+                </div>
+                <h1 class="welcome-text">Bienvenidos a Sonqo</h1>
+                <p class="tagline">Descubre el ritmo de tu corazón</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon">FB</a>
+                    <a href="#" class="social-icon">TW</a>
+                    <a href="#" class="social-icon">IG</a>
+                </div>
+            </div>
+        </main>
+    
+        <script>
+            // Llama a la función fetch_test cuando la página cargue
+            document.addEventListener('DOMContentLoaded', function() {
+                fetch_test();
+            });
+        </script>
+    </body>
+
+</html>

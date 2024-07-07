@@ -34,4 +34,8 @@ function fetchListarConsejos() {
     fetchPage('/profesional/listconsejos');
 }
 
+function homeUsuario() {
+    fetchPage('/usuarios/homeusuario');
+}
+
 

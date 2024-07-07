@@ -16,11 +16,18 @@
     {% include 'common/footer.html' %}
 
     <script>
-        // Llama a la función fetch_test cuando la página cargue
+        // Función para cargar la página por defecto
+        function fetchInicio() {
+            fetchPage('/homeusuario');
+        }
+    
+        // Llama a fetchInicio() cuando la página esté completamente cargada
         document.addEventListener('DOMContentLoaded', function() {
-            fetch_test();
+            fetchInicio();
         });
     </script>
+
+
 </body>
 
 </html>
