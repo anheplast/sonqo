@@ -1,21 +1,42 @@
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
+/* list_consejos.css */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f4f8;
+    color: #333;
+    line-height: 1.6;
 }
 
-ul.consejos {
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    font-weight: 300;
+}
+
+.consejos {
     list-style-type: none;
     padding: 0;
 }
 
-ul.consejos li {
-    background-color: #f9f9f9;
-    margin: 10px 0;
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.consejo {
+    background-color: #ffffff;
+    margin-bottom: 20px;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.consejo:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .consejo-info {
@@ -23,12 +44,47 @@ ul.consejos li {
 }
 
 .consejo-info h3 {
-    margin: 0;
-    font-size: 1.2em;
-    color: #333;
+    margin: 0 0 10px;
+    font-size: 1.4em;
+    color: #3498db;
 }
 
 .consejo-info p {
-    margin: 5px 0 0;
+    margin: 10px 0;
+    color: #555;
+    font-size: 1em;
+}
+
+.full-text {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
     color: #666;
+    font-style: italic;
+}
+
+/* Estilos para el ID del consejo */
+.consejo-id {
+    font-size: 0.8em;
+    color: #95a5a6;
+    margin-left: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    .consejo {
+        padding: 20px;
+    }
+
+    .consejo-info h3 {
+        font-size: 1.2em;
+    }
 }

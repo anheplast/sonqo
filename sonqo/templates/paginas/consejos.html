@@ -22,10 +22,6 @@
                 <h2>{{ consejo.titulo }}</h2>
                 <p class="descripcion">{{ consejo.descripcion }}</p>
                 <p class="detalles">{{ consejo.detalles }}</p>
-                <button class="toggle-details-btn">Seguir leyendo</button>
-                <div class="full-details">
-                    <p>{{ consejo.detalles }}</p>
-                </div>
                 <img src="{{ consejo.imagen_url }}" alt="{{ consejo.titulo }}">
             </div>
             {% endfor %}

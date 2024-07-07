@@ -6,16 +6,16 @@
     <title>Lista de Consejos</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/list_consejos.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
     <div class="container">
         <h1>Lista de Consejos</h1>
         <ul class="consejos">
             {% for consejo in consejos %}
-            <li>
+            <li class="consejo">
                 <div class="consejo-info">
-                    <h3>{{ consejo.titulo }} (ID: {{ consejo.id }})</h3>
+                    <h3>{{ consejo.titulo }} <span class="consejo-id">(ID: {{ consejo.id }})</span></h3>
                     <p>{{ consejo.descripcion }}</p>
                 </div>
             </li>

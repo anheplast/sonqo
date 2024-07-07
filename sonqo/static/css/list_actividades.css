@@ -1,34 +1,104 @@
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
+/* list_actividades.css */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
 }
 
-ul.actividades {
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    font-weight: 300;
+}
+
+.actividades {
     list-style-type: none;
     padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
 }
 
-ul.actividades li {
-    background-color: #f9f9f9;
-    margin: 10px 0;
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.actividad {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.actividad:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .actividad-info {
-    text-align: left;
+    padding: 20px;
 }
 
 .actividad-info h3 {
-    margin: 0;
-    font-size: 1.2em;
-    color: #333;
+    margin: 0 0 10px;
+    font-size: 1.3em;
+    color: #3498db;
 }
 
-.actividad-info p {
-    margin: 5px 0 0;
+.actividad-info .descripcion {
+    color: #555;
+    font-size: 0.9em;
+    margin-bottom: 15px;
+}
+
+.actividad-info .full-text {
     color: #666;
+    font-size: 0.85em;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+    margin-top: 10px;
+}
+
+.actividad-id {
+    font-size: 0.8em;
+    color: #95a5a6;
+    display: block;
+    margin-top: 5px;
+}
+
+/* Botón para mostrar/ocultar texto completo */
+.toggle-full-text {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+}
+
+.toggle-full-text:hover {
+    background-color: #2980b9;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    .actividades {
+        grid-template-columns: 1fr;
+    }
 }

@@ -97,7 +97,22 @@ def usuario():
 def pulso():
     return render_template('paginas/pulso.html')
 
+
+
 # Rutas a las paginas de Usuario
+
+@app.route('/homeusuario')
+def mostrar_homeusuario():
+    return render_template('paginas/homeusuario.html')
+
+@app.route('/homeprofesional')
+def mostrar_homeprofesional():
+    return render_template('paginas/homeprofesional.html')
+
+@app.route('/homeadmin')
+def mostrar_homeadmin():
+    return render_template('admin/homeadmin.html')
+
 @app.route('/consejos')
 def mostrar_consejos():
     consejos = Consejo.query.all()

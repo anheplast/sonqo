@@ -1,106 +1,90 @@
-.actividades-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    margin: 20px 0;
-    padding-left: 100px;
-    padding-bottom: 10px;
-}
-
-.actividad {
-    flex: 1 1 calc(33.33% - 20px); /* Calcula el tamaño para mostrar 3 actividades por fila */
-    background-color: #f8f8f8;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-}
-
-.actividad h2 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
+/* actividades.css */
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
     color: #333;
-}
-
-.actividad .descripcion {
-    font-size: 1rem;
-    color: #666;
-    margin-bottom: 10px;
-    max-height: 4.5em; /* Limit text to three lines */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.actividad img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 10px;
-}
-
-.actividad .video-responsive {
-    position: relative;
-    width: 100%;
-    padding-top: 56.25%; /* 16:9 aspect ratio (height / width * 100) */
-    overflow: hidden;
-    border-radius: 8px;
-}
-
-.actividad .video-responsive iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 8px;
-}
-
-.ver-mas-btn {
-    background-color: #c91515;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 1rem;
-    margin-top: 10px;
-    margin-bottom: 20px; /* Added space below the button */
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-.ver-mas-btn:hover {
-    background-color: #700000;
-}
-
-@media (max-width: 992px) {
-    .actividad {
-        flex: 1 1 calc(50% - 20px); /* Mostrar 2 actividades por fila en pantallas medianas */
-    }
-}
-
-@media (max-width: 600px) {
-    .actividad {
-        flex: 1 1 calc(100% - 20px); /* Mostrar 1 actividad por fila en dispositivos móviles */
-    }
-
-    .actividad .video-responsive {
-        padding-top: 75%; /* Ajusta el video en dispositivos móviles */
-    }
+    line-height: 1.6;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 40px 20px;
 }
 
 h1 {
     text-align: center;
-    margin-bottom: 20px;
-    font-size: 2rem;
-    color: #333;
+    color: #2c3e50;
+    font-size: 2.5em;
+    margin-bottom: 40px;
+    font-weight: 600;
+}
+
+.actividades-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.actividad {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.actividad:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.actividad h2 {
+    background-color: #e74c3c;
+    color: #ffffff;
+    margin: 0;
+    padding: 15px;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.actividad .descripcion {
+    padding: 20px;
+    font-size: 1em;
+    color: #555;
+}
+
+.actividad .full-text {
+    padding: 0 20px 20px;
+    font-size: 0.9em;
+    color: #777;
+}
+
+.actividad img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.video-responsive {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+    overflow: hidden;
+}
+
+.video-responsive iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+@media (max-width: 768px) {
+    .actividades-container {
+        grid-template-columns: 1fr;
+    }
 }

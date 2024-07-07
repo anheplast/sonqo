@@ -1,0 +1,25 @@
+<!-- admin.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/playlist.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <script src="{{ url_for('static', filename='js/fetchtest.js') }}"></script>
+</head>
+<body>
+    {% include 'common/navbar_usuarios.html' %}
+    
+    <main>
+        {% include 'admin/admin_consejos.html' %}
+        {% include 'admin/admin_actividades.html' %}
+        {% include 'admin/admin_playlist.html' %}
+    </main>
+    
+    {% include 'common/footer.html' %}
+</body>
+</html>

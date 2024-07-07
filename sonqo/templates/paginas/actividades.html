@@ -21,9 +21,8 @@
             <!-- Itera sobre la lista de actividades y agrega el contenido dinámico -->
             {% for actividad in actividades %}
             <div class="actividad">
-                <h2>{{ actividad.titulo }}</h2> <!-- título de la actividad -->
-                <p class="descripcion">{{ actividad.descripcion }}</p> <!-- descripción de la actividad -->
-                <button class="ver-mas-btn">Ver más</button> <!-- ver más detalles de la actividad -->
+                <h2>{{ actividad.titulo }}</h2>
+                <p class="descripcion">{{ actividad.descripcion }}</p>
                 <div class="full-text" style="display: none;">
                     <p>{{ actividad.descripcion }}</p> <!-- Texto completo de la descripción, por defecto oculto -->
                 </div>
