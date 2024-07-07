@@ -40,7 +40,7 @@ def crear_registro():
         # Verificar si el nombre de usuario ya existe
         usuario_existente = User.query.filter_by(username=usuario).first()
         if usuario_existente:
-            return render_template("registro.html", registro_correcto="El nombre de usuario ya existe. Por favor elige otro.")
+            return render_template("auth/registro.html", registro_correcto="El nombre de usuario ya existe. Por favor elige otro.")
 
         # Encriptar la contraseña antes de almacenarla
         hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
