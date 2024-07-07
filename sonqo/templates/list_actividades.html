@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Actividades</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/list_actividades.css') }}">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Lista de Actividades</h1>
+        <ul class="actividades">
+            {% for actividad in actividades %}
+            <li>
+                <div class="actividad-info">
+                    <h3>{{ actividad.titulo }} (ID: {{ actividad.id }})</h3>
+                    <p>{{ actividad.descripcion }}</p>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% include 'common/footer.html' %}
+</body>
+</html>

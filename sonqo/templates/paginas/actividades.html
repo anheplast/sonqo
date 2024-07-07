@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/actividades.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap" rel="stylesheet">
+    <script src="{{ url_for('static', filename='js/actividades.js') }}"></script>
+    <title>Actividades</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Actividades</h1>
+
+        <!-- Contenedor para las actividades -->
+        <div class="actividades-container">
+            {% for actividad in actividades %}
+            <div class="actividad">
+                <h2>{{ actividad.titulo }}</h2>
+                <p class="descripcion">{{ actividad.descripcion }}</p>
+                <button class="ver-mas-btn">Ver más</button>
+                <div class="full-text" style="display: none;">
+                    <p>{{ actividad.descripcion }}</p>
+                </div>
+                {% if actividad.imagen_url %}
+                <img src="{{ actividad.imagen_url }}" alt="{{ actividad.titulo }}">
+                {% endif %}
+
+                {% if actividad.video_url %}
+                <div class="video-responsive">
+                    <iframe width="560" height="315" src="{{ actividad.video_url }}" frameborder="0" allowfullscreen></iframe>
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% include 'common/footer.html' %}
+</body>
+
+</html>

@@ -1,0 +1,18 @@
+<form method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    <div>
+        {{ form.titulo.label }}<br>
+        {{ form.titulo(size=32) }}
+    </div>
+    <div>
+        {{ form.artista.label }}<br>
+        {{ form.artista(size=32) }}
+    </div>
+    <div>
+        {{ form.archivo.label }}<br>
+        {{ form.archivo(accept=".mp3") }}
+    </div>
+    <div>
+        {{ form.submit() }}
+    </div>
+</form>

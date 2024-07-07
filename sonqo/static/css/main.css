@@ -3,8 +3,8 @@
     font-family: 'Open Sans';
     --text-primary: #b6b6b6;
     --text-secondary: #ececec;
-    --bg-primary: #23232e;
-    --bg-secondary: #141418;
+    --bg-primary: #302c2c;
+    --bg-secondary: #940f0f; /*Color secundario -> Hover */
     --transition-speed: 600ms;
   }
   
@@ -35,6 +35,7 @@
   .navbar {
     position: fixed;
     background-color: var(--bg-primary);
+    z-index: 1000; /*Por encima*/
     transition: width 600ms ease;
     overflow: hidden;
   }
@@ -194,3 +195,23 @@
   .solar #solarIcon {
     display: block;
   }
+  
+  /* Footer */
+  footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background-color: rgb(238, 223, 223);
+    color: purple;
+    font-weight: bold;
+    padding: 0.5rem 0; /* Ajuste el padding según sea necesario */
+    z-index: 900; /* Asegura que el footer esté debajo de la navbar por defecto */
+  }
+
+  @media only screen and (max-width: 600px) {
+    footer {
+      display: none; /* Oculta el footer en dispositivos móviles */
+    }
+  }
+

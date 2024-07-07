@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Listado de Canciones</title>
+</head>
+<body>
+    <h1>Listado de Canciones Disponibles</h1>
+    <ul>
+        {% for cancion in canciones %}
+            <li><a href="{{ url_for('obtener_cancion', nombre_archivo=cancion) }}">{{ cancion }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/pulso.css') }}">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap" rel="stylesheet">
+  <script src="{{ url_for('static', filename='js/paginas.js') }}"></script>
+  <title>Consejos</title>
+
+</head>
+
+<body>
+<div class="container">
+    <h1>Monitor de Salud</h1>
+    <div class="heart-container">
+        <img src="{{ url_for('static', filename='img/corazon-rojo.png') }}" alt="Corazón" id="heart">
+    </div>
+    <div class="data-container">
+        <h2>Datos de Salud:</h2>
+        <p>Saturación de Oxígeno (%SpO2): <span id="spo2">--</span></p>
+        <p>Frecuencia Cardíaca (PRbpm): <span id="prbpm">--</span></p>
+        <p>Índice de Perfusión (PI %): <span id="pi">--</span></p>
+    </div>
+</div>
+{% include 'common/footer.html' %}
+</body>
+
+</html>

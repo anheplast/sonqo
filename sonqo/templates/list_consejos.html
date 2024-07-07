@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Consejos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/list_consejos.css') }}">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Lista de Consejos</h1>
+        <ul class="consejos">
+            {% for consejo in consejos %}
+            <li>
+                <div class="consejo-info">
+                    <h3>{{ consejo.titulo }} (ID: {{ consejo.id }})</h3>
+                    <p>{{ consejo.descripcion }}</p>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% include 'common/footer.html' %}
+</body>
+</html>

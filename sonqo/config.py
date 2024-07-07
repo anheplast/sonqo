@@ -1,9 +1,8 @@
 import os
-from flask_sqlalchemy import SQLAlchemy
 
 class Config:
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'yw/CtFLiui8U9j0CKbZuBo0rgjn+vRCWaY7GZq87nA0='
-    SQLALCHEMY_DATABASE_URI = 'postgresql://mapple:J_%40nte0L@localhost/db_sonqo'
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'una_llave_secreta'
+    SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:daniela@localhost/db_sonqo'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-
-db = SQLAlchemy()
+    UPLOAD_FOLDER = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'sonqo/static/uploads')
+    MAX_CONTENT_LENGTH = 36 * 1024 * 1024  # Limite de tamaño del archivo de 36 MB
