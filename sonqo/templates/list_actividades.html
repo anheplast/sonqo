@@ -6,22 +6,23 @@
     <title>Lista de Actividades</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/list_actividades.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
     <div class="container">
         <h1>Lista de Actividades</h1>
         <ul class="actividades">
             {% for actividad in actividades %}
-            <li>
+            <li class="actividad">
                 <div class="actividad-info">
-                    <h3>{{ actividad.titulo }} (ID: {{ actividad.id }})</h3>
-                    <p>{{ actividad.descripcion }}</p>
+                    <h3>{{ actividad.titulo }} <span class="actividad-id">(ID: {{ actividad.id }})</span></h3>
+                    <p class="descripcion">{{ actividad.descripcion }}</p>
                 </div>
             </li>
             {% endfor %}
         </ul>
     </div>
     {% include 'common/footer.html' %}
+    <script src="{{ url_for('static', filename='js/actividades.js') }}"></script>
 </body>
 </html>
