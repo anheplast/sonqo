@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Pacientes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/registro_pacientes.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Registro de Pacientes</h1>
+        <form id="registroForm" method="POST">
+            <label for="cedula">Cédula:</label>
+            <input type="text" id="cedula" name="cedula" class="form-control" required>
+            
+            <label for="nombres">Nombres:</label>
+            <input type="text" id="nombres" name="nombres" class="form-control" required>
+            
+            <label for="apellidos">Apellidos:</label>
+            <input type="text" id="apellidos" name="apellidos" class="form-control" required>
+            
+            <label for="tipo_sangre">Tipo de Sangre:</label>
+            <select id="tipo_sangre" name="tipo_sangre" class="form-select" required>
+                <option value="">Seleccione tipo de sangre</option>
+                <option value="O-">O-</option>
+                <option value="O+">O+</option>
+                <option value="A-">A-</option>
+                <option value="A+">A+</option>
+                <option value="B-">B-</option>
+                <option value="B+">B+</option>
+                <option value="AB-">AB-</option>
+                <option value="AB+">AB+</option>
+            </select>
+            
+            <label for="novedades">Novedades:</label>
+            <textarea id="novedades" name="novedades" class="form-control" rows="4"></textarea>
+            
+            <label for="descripcion">Descripción del Paciente:</label>
+            <textarea id="descripcion" name="descripcion" class="form-control" rows="4" required></textarea>
+            
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/registro_pacientes.js') }}"></script>
+</body>
+</html>

@@ -5,19 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Administración</title>
+    
+    <!-- CSS de las paginas  -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/playlist.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+    <script src="{{ url_for('static', filename='js/fetchtest.js') }}"></script>
 </head>
 <body>
-    {% include 'common/navbar_usuarios.html' %}
+    {% include 'admin/navbar_admin.html' %}
     
-    <main>
-        {% include 'admin/admin_consejos.html' %}
-        {% include 'admin/admin_actividades.html' %}
-        {% include 'admin/admin_playlist.html' %}
+    <main id="main">
+        <!-- Contenido cargado de forma asíncrona se colocará aquí -->
     </main>
     
     {% include 'common/footer.html' %}
+
+    <script>
+        // Llama a la función fetch_test cuando la página cargue
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch_test();
+        });
+    </script>
 </body>
 </html>

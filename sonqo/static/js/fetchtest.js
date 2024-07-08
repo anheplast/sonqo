@@ -58,6 +58,12 @@ function fetchListarConsejos() {
     fetchPage('/profesional/listconsejos');
 }
 
+// Trae la pagina de adminstrador de consejos y actividades
+function fetchConsejosActividades() {
+    fetchPage('/consejos_actividades');
+}
+
+// Trae la pagina por defecto de usuario
 function homeUsuario() {
     fetchPage('/usuarios/homeusuario');
 }
