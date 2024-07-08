@@ -1,4 +1,4 @@
-#!/home/mapple/Documentos/sonqo-web/myvenv/bin/python3
+#!/home/mapple/Documentos/sonqo-web/myvenv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
