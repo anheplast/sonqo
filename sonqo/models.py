@@ -50,10 +50,14 @@ class Cancion(db.Model):
 
 
 # Modelo de datos para los registros de ritmo cardiaco y SpO2--------------------------
+
 class PulseData(db.Model):
+    __tablename__ = 'pulse_data'
     id = db.Column(db.Integer, primary_key=True)
-    ritmo_cardiaco = db.Column(db.Float)
-    spo2 = db.Column(db.Float)
+    heart_rate = db.Column(db.Float, nullable=False)
+    spo2 = db.Column(db.Float, nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+
 #--------------------------------------------------------------------------------------
 
 

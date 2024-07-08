@@ -1,6 +1,6 @@
 import os
 import json
-from flask import render_template, redirect, url_for, request, flash, session, send_from_directory, send_file, jsonify
+from flask import render_template, redirect, url_for, request, flash, session, send_from_directory, send_file, jsonify, Blueprint
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired
@@ -9,6 +9,9 @@ from sonqo import app, db, bcrypt
 from sonqo.models import User, Consejo, Actividad, Cancion, PulseData, Paciente
 from sonqo.forms import UploadForm
 from flask_cors import CORS
+
+from sonqo.models import PulseData
+from sonqo import db
 
 #ESP32
 from sqlalchemy import create_engine
@@ -95,7 +98,8 @@ def usuario():
 
 @app.route('/paginas/pulso')
 def pulso():
-    return render_template('paginas/pulso.html')
+    pulso_data = PulseData.query.order_by(PulseData.timestamp.desc()).all()  # Obtener todos los datos, ordenados por timestamp descendente
+    return render_template('paginas/pulso.html', pulso_data=pulso_data)
 
 
 
@@ -272,10 +276,6 @@ def eliminar_consejo():
 #------------------------------------------------------------------------------------------
 
 
-# Datos del XIAO ESP32S3-------------------------------------------------------------------
-
-#------------------------------------------------------------------------------------------
-
 
 # Registro paciente------------------------------------------------------------------------
 @app.route('/profesional', methods=['GET', 'POST'])
@@ -304,6 +304,8 @@ def profesional():
 
     return render_template('profesional.html')
 
+
+
 @app.route('/registro_paciente', methods=['GET', 'POST'])
 def registro_paciente():
     return render_template('paginas/registro_paciente.html')
@@ -322,3 +324,53 @@ def consejos_actividades():
     consejos = Consejo.query.all()
     actividades = Actividad.query.all()
     return render_template('paginas/admin_consejos_actividades.html', consejos=consejos, actividades=actividades)
+
+
+
+bp = Blueprint('api', __name__, url_prefix='/api')
+
+# Ruta para recibir datos de pulso desde ESP32 usando GET
+@bp.route('/pulso', methods=['GET'])
+def recibir_datos_pulso():
+    heart_rate = request.args.get('heart_rate')
+    spo2 = request.args.get('spo2')
+
+    if heart_rate is not None and spo2 is not None:
+        try:
+            # Guardar los datos en la base de datos
+            nuevo_dato = PulseData(heart_rate=float(heart_rate), spo2=float(spo2))
+            db.session.add(nuevo_dato)
+            db.session.commit()
+            return jsonify({'message': 'Datos recibidos correctamente'}), 200
+        except ValueError:
+            return jsonify({'error': 'Datos inválidos, no se pueden convertir a números'}), 400
+    else:
+        return jsonify({'error': 'Datos inválidos'}), 400
+
+# Ruta para obtener todos los datos de pulso almacenados
+@bp.route('/datos_pulso', methods=['GET'])
+def obtener_datos_pulso():
+    try:
+        datos = PulseData.query.all()
+        datos_json = [{'heart_rate': dato.heart_rate, 'spo2': dato.spo2, 'timestamp': dato.timestamp.strftime('%Y-%m-%d %H:%M:%S')} for dato in datos]
+        return jsonify(datos_json), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+# Ruta para obtener los últimos datos de pulso almacenados
+@app.route('/ultimos_pulsos', methods=['GET'])
+def get_ultimos_pulsos():
+    try:
+        # Obtener los últimos datos de pulso de la base de datos
+        pulso_data = PulseData.query.order_by(PulseData.timestamp.desc()).limit(10).all()
+        # Formatear los datos como JSON para enviar al cliente
+        data = [{
+            'id': pulse.id,
+            'heart_rate': pulse.heart_rate,
+            'spo2': pulse.spo2,
+            'timestamp': pulse.timestamp.strftime('%Y-%m-%d %H:%M:%S')
+        } for pulse in pulso_data]
+
+        return jsonify(data), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500  
